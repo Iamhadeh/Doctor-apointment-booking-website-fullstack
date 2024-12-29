@@ -1,9 +1,16 @@
 
-import React from 'react'
-import {assets} from '../assets/assets'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import {assets} from '../assets/assets' 
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const [showMenu, setShowMenu] = useState (false)
+    const [token, setToken] = useState(true)
+
+
+
   return (
     <div className='flex item-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
         <img className='w-44 cursor-pointer' src={assets.logo} alt="" />
@@ -25,8 +32,22 @@ const Navbar = () => {
                 <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
             </NavLink>
         </ul>
-        <div>
-            <button>Create Account</button>
+        <div className='flex item-center gap-4' >
+            {
+                token
+                ? <div className='flex item-center gap-3 cursor-pointer group relative'>
+                    <img className='w-8 rounded-full' src={assets.profile_pic} alt="" />
+                    <img className='w-2.5' src={assets.dropdown_icon} alt="" />
+                    <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray z-20 hidden group-hover:block'>
+                        <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4' >
+                            <p onClick={() => navigate('my-profile')} className='hover:text cursor-pointer'>My profile</p>
+                            <p  onClick={() => navigate('my-appointment')}className='hover:text cursor-pointer'>My Appointment</p>
+                            <p onClick={()=> setToken(false)} className='hover:text cursor-pointer'>Logout</p>
+                        </div>
+                    </div>
+                </div>
+                :<button onClick={()=> navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
+            }
         </div>
     </div>
   )

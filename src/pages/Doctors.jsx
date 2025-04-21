@@ -1,12 +1,13 @@
 
 import React from 'react'
-import Speciality from '../components/Speciality'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+
 
 const Doctors = () => {
 
-  const { Speciality } = useParams;
-  console.log(Speciality);
+  const { speciality } = useParams()
+  console.log(speciality)
+
   return (
     <div>
      
